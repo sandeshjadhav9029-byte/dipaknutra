@@ -310,7 +310,7 @@ export const siteContent = {
     name: 'Dipak Nutra',
     tagline: 'Premium Dry Fruits & Natural Products',
     description: 'Your trusted source for premium quality dry fruits, cashews, almonds, and natural products. Freshness guaranteed.',
-    phone: '+91 98765 43210',
+    phone: '+919930982686',
     email: 'contact@dipaknutra.com',
     address: 'Gujarat, India',
     instagram: '@dipaknutra',
