@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { ArrowRight, Nut, Leaf, Truck, Shield, Award, CheckCircle } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
-import { products, siteContent } from '@/data/products';
+import { products, siteContent, categories } from '@/data/products';
 
 export default function Home() {
   const featuredProducts = products.filter(p => p.featured).slice(0, 6);

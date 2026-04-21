@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Phone, Mail, MapPin, Star, Heart, Instagram } from 'lucide-react';
+import { Phone, Mail, MapPin, Star, Heart } from 'lucide-react';
 import { siteContent } from '@/data/products';
 
 export default function Footer() {
@@ -54,9 +54,6 @@ export default function Footer() {
               Your trusted source for premium quality dry fruits, cashews, almonds, and natural products. Freshness guaranteed.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#b8860b] transition-colors">
-                <Instagram className="w-5 h-5" />
-              </a>
               <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#b8860b] transition-colors">
                 <Star className="w-5 h-5" />
               </a>
