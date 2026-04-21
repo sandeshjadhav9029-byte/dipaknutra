@@ -27,7 +27,14 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <Nut className="w-8 h-8 text-[#b8860b]" />
+              <div className="relative w-10 h-10">
+                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                  <ellipse cx="20" cy="20" rx="18" ry="18" fill="#b8860b"/>
+                  <ellipse cx="20" cy="18" rx="14" ry="14" fill="#8B6914"/>
+                  <ellipse cx="20" cy="16" rx="10" ry="10" fill="#CD853F"/>
+                  <ellipse cx="17" cy="14" rx="3" ry="2" fill="white" fillOpacity="0.3"/>
+                </svg>
+              </div>
               <span className="text-xl font-bold font-heading">
                 Dipak<span className="text-[#b8860b]">Nutra</span>
               </span>

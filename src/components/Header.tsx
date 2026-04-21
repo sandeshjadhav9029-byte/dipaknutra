@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { ShoppingCart, Menu, X, Nut, User } from 'lucide-react';
+import { ShoppingCart, Menu, X, User } from 'lucide-react';
 import { useCartStore } from '@/store/cart';
 import { categories } from '@/data/products';
 
@@ -26,7 +26,14 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <Nut className="w-8 h-8 text-[#b8860b]" />
+            <div className="relative w-10 h-10">
+              <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                <ellipse cx="20" cy="20" rx="18" ry="18" fill="#b8860b"/>
+                <ellipse cx="20" cy="18" rx="14" ry="14" fill="#8B6914"/>
+                <ellipse cx="20" cy="16" rx="10" ry="10" fill="#CD853F"/>
+                <ellipse cx="17" cy="14" rx="3" ry="2" fill="white" fillOpacity="0.3"/>
+              </svg>
+            </div>
             <span className="text-xl md:text-2xl font-bold text-[#2d1810] font-heading">
               Dipak<span className="text-[#b8860b]">Nutra</span>
             </span>

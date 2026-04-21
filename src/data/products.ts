@@ -312,7 +312,7 @@ export const siteContent = {
     description: 'Your trusted source for premium quality dry fruits, cashews, almonds, and natural products. Freshness guaranteed.',
     phone: '+919930982686',
     email: 'contact@dipaknutra.com',
-    address: 'Gujarat, India',
+    address: 'Thane West, Maharashtra – 400601, India',
     instagram: '@dipaknutra',
     facebook: 'DipakNutra'
   },
