@@ -6,14 +6,6 @@ export default function Footer() {
   const { brand } = siteContent;
   
   const footerLinks = {
-    shop: [
-      { href: '/shop?category=raw-cashews', label: 'Raw Cashews' },
-      { href: '/shop?category=flavored-cashews', label: 'Flavored Cashews' },
-      { href: '/shop?category=almonds', label: 'Almonds' },
-      { href: '/shop?category=raisins', label: 'Raisins' },
-      { href: '/shop?category=walnuts', label: 'Walnuts' },
-      { href: '/shop?category=dates', label: 'Dates' },
-    ],
     quickLinks: [
       { href: '/about', label: 'About Us' },
       { href: '/contact', label: 'Contact Us' },
@@ -22,8 +14,9 @@ export default function Footer() {
       { href: '/shipping', label: 'Return Policy' },
       { href: '/shipping', label: 'Privacy Policy' },
     ],
-    categories: [
-      { href: '/shop?category=raw-cashews', label: 'Cashew Nuts' },
+    shop: [
+      { href: '/shop?category=raw-cashews', label: 'Raw Cashews' },
+      { href: '/shop?category=flavored-cashews', label: 'Flavored Cashews' },
       { href: '/shop?category=almonds', label: 'Almonds' },
       { href: '/shop?category=raisins', label: 'Raisins' },
       { href: '/shop?category=walnuts', label: 'Walnuts' },
@@ -35,18 +28,19 @@ export default function Footer() {
     <footer className="bg-[#2d1810] text-white">
       <div className="container-custom py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {/* Brand */}
+          {/* Brand with Logo */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="relative w-10 h-10">
-                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                  <ellipse cx="20" cy="20" rx="18" ry="18" fill="#b8860b"/>
-                  <ellipse cx="20" cy="18" rx="14" ry="14" fill="#8B6914"/>
-                  <ellipse cx="20" cy="16" rx="10" ry="10" fill="#CD853F"/>
-                  <ellipse cx="17" cy="14" rx="3" ry="2" fill="white" fillOpacity="0.3"/>
+              <div className="relative w-12 h-12">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                  <path d="M30 15 L70 15 L70 25 L80 25 L80 35 L85 35 L85 90 C85 95 80 100 75 100 L25 100 C20 100 15 95 15 90 L15 35 L20 35 L20 25 L30 25 Z" fill="#CD853F"/>
+                  <ellipse cx="50" cy="15" rx="20" ry="8" fill="#D2691E"/>
+                  <rect x="25" y="40" width="50" height="40" rx="3" fill="#fdfbf7"/>
+                  <text x="50" y="68" textAnchor="middle" fill="#8B4513" fontSize="24" fontWeight="bold" fontFamily="serif">DN</text>
+                  <ellipse cx="35" cy="35" rx="8" ry="15" fill="white" fillOpacity="0.2"/>
                 </svg>
               </div>
-              <span className="text-xl font-bold font-heading">
+              <span className="text-xl font-bold font-serif">
                 Dipak<span className="text-[#b8860b]">Nutra</span>
               </span>
             </Link>
@@ -68,7 +62,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
               {footerLinks.quickLinks.map((link) => (
-                <li key={link.href}>
+                <li key={link.label}>
                   <Link href={link.href} className="text-white/70 hover:text-[#b8860b] text-sm transition-colors">
                     {link.label}
                   </Link>
@@ -82,21 +76,7 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Shop</h4>
             <ul className="space-y-2">
               {footerLinks.shop.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="text-white/70 hover:text-[#b8860b] text-sm transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Categories */}
-          <div>
-            <h4 className="font-semibold mb-4">Categories</h4>
-            <ul className="space-y-2">
-              {footerLinks.categories.map((link) => (
-                <li key={link.href}>
+                <li key={link.label}>
                   <Link href={link.href} className="text-white/70 hover:text-[#b8860b] text-sm transition-colors">
                     {link.label}
                   </Link>
@@ -129,18 +109,12 @@ export default function Footer() {
         <div className="border-t border-white/10 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-white/50 text-sm">
-              &copy; {new Date().getFullYear()} Dipak Nutra. All rights reserved.
+              © {new Date().getFullYear()} Dipak Nutra. All rights reserved.
             </p>
             <div className="flex gap-6">
-              <Link href="/shipping" className="text-white/50 hover:text-white text-sm">
-                Privacy Policy
-              </Link>
-              <Link href="/shipping" className="text-white/50 hover:text-white text-sm">
-                Terms of Service
-              </Link>
-              <Link href="/shipping" className="text-white/50 hover:text-white text-sm">
-                Refund Policy
-              </Link>
+              <Link href="/shipping" className="text-white/50 hover:text-white text-sm">Privacy Policy</Link>
+              <Link href="/shipping" className="text-white/50 hover:text-white text-sm">Terms of Service</Link>
+              <Link href="/shipping" className="text-white/50 hover:text-white text-sm">Refund Policy</Link>
             </div>
           </div>
         </div>

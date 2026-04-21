@@ -9,7 +9,6 @@ import { categories } from '@/data/products';
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
-  const [categoryOpen, setCategoryOpen] = useState(false);
   const itemCount = useCartStore((state) => state.getItemCount());
 
   const navLinks = [
@@ -33,19 +32,24 @@ export default function Header() {
       {/* Main Header */}
       <div className="bg-[#fdfbf7]/95 backdrop-blur-sm border-b border-[#e8dfd0]">
         <div className="container-custom">
-          {/* Top Bar */}
           <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo */}
+            {/* LOGO */}
             <Link href="/" className="flex items-center gap-2">
-              <div className="relative w-10 h-10">
-                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                  <ellipse cx="20" cy="20" rx="18" ry="18" fill="#b8860b"/>
-                  <ellipse cx="20" cy="18" rx="14" ry="14" fill="#8B6914"/>
-                  <ellipse cx="20" cy="16" rx="10" ry="10" fill="#CD853F"/>
-                  <ellipse cx="17" cy="14" rx="3" ry="2" fill="white" fillOpacity="0.3"/>
+              <div className="relative w-12 h-12">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                  {/* Kokam Bottle Shape - Main body */}
+                  <path d="M30 15 L70 15 L70 25 L80 25 L80 35 L85 35 L85 90 C85 95 80 100 75 100 L25 100 C20 100 15 95 15 90 L15 35 L20 35 L20 25 L30 25 Z" fill="#CD853F"/>
+                  {/* Neck of bottle */}
+                  <ellipse cx="50" cy="15" rx="20" ry="8" fill="#D2691E"/>
+                  {/* Label area */}
+                  <rect x="25" y="40" width="50" height="40" rx="3" fill="#fdfbf7"/>
+                  {/* "DN" text */}
+                  <text x="50" y="68" textAnchor="middle" fill="#8B4513" fontSize="24" fontWeight="bold" fontFamily="serif">DN</text>
+                  {/* Highlight */}
+                  <ellipse cx="35" cy="35" rx="8" ry="15" fill="white" fillOpacity="0.2"/>
                 </svg>
               </div>
-              <span className="text-xl md:text-2xl font-bold text-[#2d1810] font-heading">
+              <span className="text-xl md:text-2xl font-bold text-[#2d1810] font-serif">
                 Dipak<span className="text-[#b8860b]">Nutra</span>
               </span>
             </Link>
@@ -56,7 +60,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium text-[#2d1810]/80 hover:text-[#b8860b] transition-colors flex items-center gap-1"
+                  className="text-sm font-medium text-[#2d1810]/80 hover:text-[#b8860b] transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -69,15 +73,15 @@ export default function Header() {
                 onClick={() => setShopOpen(!shopOpen)}
                 className="text-sm font-medium text-[#2d1810]/80 hover:text-[#b8860b] transition-colors flex items-center gap-1"
               >
-                Shop by Category <ChevronDown className={`w-4 h-4 transition-transform ${shopOpen ? 'rotate-180' : ''}`} />
+                Shop <ChevronDown className={`w-4 h-4 ${shopOpen ? 'rotate-180' : ''}`} />
               </button>
               {shopOpen && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-[#e8dfd0] rounded-lg shadow-xl py-2 z-50">
+                <div className="absolute top-full left-0 mt-2 w-56 bg-white border border-[#e8dfd0] rounded-lg shadow-xl py-2 z-50">
                   {categories.slice(1).map((cat) => (
                     <Link
                       key={cat.slug}
                       href={`/shop?category=${cat.slug}`}
-                      className="block px-4 py-2 text-sm text-[#2d1810]/80 hover:bg-[#f5f0e8] hover:text-[#b8860b]"
+                      className="block px-4 py-2 text-sm text-[#2d1810] hover:bg-[#f5f0e8] hover:text-[#b8860b]"
                       onClick={() => setShopOpen(false)}
                     >
                       {cat.name}
@@ -88,16 +92,13 @@ export default function Header() {
             </div>
 
             {/* Search & Actions */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <button className="hidden md:flex items-center gap-2 px-4 py-2 bg-[#f5f0e8] rounded-full text-sm text-[#2d1810]/60">
                 <Search className="w-4 h-4" />
-                Search products...
               </button>
-              
               <Link href="/admin" className="hidden md:flex items-center gap-1 text-sm font-medium text-[#2d1810]/60 hover:text-[#b8860b]">
                 <User className="w-4 h-4" />
               </Link>
-              
               <Link href="/cart" className="relative">
                 <ShoppingCart className="w-6 h-6 text-[#2d1810]" />
                 {itemCount > 0 && (
@@ -106,17 +107,8 @@ export default function Header() {
                   </span>
                 )}
               </Link>
-
-              {/* Mobile Menu Toggle */}
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden"
-              >
-                {mobileMenuOpen ? (
-                  <X className="w-6 h-6 text-[#2d1810]" />
-                ) : (
-                  <Menu className="w-6 h-6 text-[#2d1810]" />
-                )}
+              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="lg:hidden">
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
           </div>
@@ -127,11 +119,7 @@ export default function Header() {
           <div className="container-custom py-2">
             <div className="flex items-center gap-8 overflow-x-auto">
               {categories.slice(1).map((cat) => (
-                <Link
-                  key={cat.slug}
-                  href={`/shop?category=${cat.slug}`}
-                  className="text-sm text-[#2d1810]/70 hover:text-[#b8860b] whitespace-nowrap"
-                >
+                <Link key={cat.slug} href={`/shop?category=${cat.slug}`} className="text-sm text-[#2d1810]/70 hover:text-[#b8860b] whitespace-nowrap">
                   {cat.name}
                 </Link>
               ))}
@@ -144,36 +132,11 @@ export default function Header() {
       {mobileMenuOpen && (
         <div className="lg:hidden bg-white border-t border-[#e8dfd0] absolute w-full">
           <div className="container-custom py-4">
-            <div className="mb-4">
-              <input 
-                type="text" 
-                placeholder="Search products..." 
-                className="w-full px-4 py-2 border border-[#e8dfd0] rounded-lg"
-              />
-            </div>
             {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block py-3 text-[#2d1810]/80 hover:text-[#b8860b] border-b border-[#e8dfd0]"
-                onClick={() => setMobileMenuOpen(false)}
-              >
+              <Link key={link.href} href={link.href} className="block py-3 border-b border-[#e8dfd0]" onClick={() => setMobileMenuOpen(false)}>
                 {link.label}
               </Link>
             ))}
-            <div className="pt-4 mt-2">
-              <p className="text-xs font-medium text-[#2d1810]/60 mb-2">Categories</p>
-              {categories.slice(1).map((cat) => (
-                <Link
-                  key={cat.slug}
-                  href={`/shop?category=${cat.slug}`}
-                  className="block py-2 pl-4 text-sm text-[#2d1810]/70"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {cat.name}
-                </Link>
-              ))}
-            </div>
           </div>
         </div>
       )}
