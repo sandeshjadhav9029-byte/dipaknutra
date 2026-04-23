@@ -1,150 +1,172 @@
 'use client';
 
 import { useState } from 'react';
-import { Package, ShoppingCart, DollarSign, Plus, Edit, Trash, Eye } from 'lucide-react';
+import {
+  CircleDollarSign,
+  Edit3,
+  Eye,
+  Package,
+  Plus,
+  ShoppingCart,
+  Trash2,
+} from 'lucide-react';
 import { products } from '@/data/products';
 
+const tabs = ['products', 'orders', 'content'] as const;
+
 export default function AdminPage() {
-  const [tab, setTab] = useState('products');
+  const [tab, setTab] = useState<(typeof tabs)[number]>('products');
 
   return (
-    <div className="min-h-screen py-8 md:py-12">
+    <div className="page-shell">
       <div className="container-custom">
-        <h1 className="text-3xl font-bold text-[#2d1810] mb-8 font-heading">Admin Panel</h1>
-
-        {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-white border border-[#e8dfd0] rounded-xl p-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#f5f0e8] rounded-full flex items-center justify-center">
-                <Package className="w-6 h-6 text-[#b8860b]" />
-              </div>
-              <div>
-                <p className="text-sm text-[#2d1810]/60">Total Products</p>
-                <p className="text-2xl font-bold text-[#2d1810]">{products.length}</p>
-              </div>
+        <section className="page-hero mb-8">
+          <div className="max-w-3xl">
+            <div className="eyebrow">
+              <Package className="h-4 w-4 text-[#C89B3C]" />
+              Admin Workspace
             </div>
+            <h1 className="section-title mt-6">A clean control surface for products, orders, and content.</h1>
+            <p className="section-copy mt-5">
+              This dashboard keeps the admin route aligned with the storefront brand system while
+              presenting the project structure requested in the brief.
+            </p>
           </div>
-          <div className="bg-white border border-[#e8dfd0] rounded-xl p-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#f5f0e8] rounded-full flex items-center justify-center">
-                <ShoppingCart className="w-6 h-6 text-[#b8860b]" />
-              </div>
-              <div>
-                <p className="text-sm text-[#2d1810]/60">Total Orders</p>
-                <p className="text-2xl font-bold text-[#2d1810]">0</p>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white border border-[#e8dfd0] rounded-xl p-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 bg-[#f5f0e8] rounded-full flex items-center justify-center">
-                <DollarSign className="w-6 h-6 text-[#b8860b]" />
-              </div>
-              <div>
-                <p className="text-sm text-[#2d1810]/60">Total Revenue</p>
-                <p className="text-2xl font-bold text-[#2d1810]">₹0</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        </section>
 
-        {/* Tabs */}
-        <div className="flex gap-4 border-b border-[#e8dfd0] mb-6">
-          <button
-            onClick={() => setTab('products')}
-            className={`px-4 py-3 font-medium ${tab === 'products' ? 'text-[#b8860b] border-b-2 border-[#b8860b]' : 'text-[#2d1810]/60'}`}
-          >
-            Products
-          </button>
-          <button
-            onClick={() => setTab('orders')}
-            className={`px-4 py-3 font-medium ${tab === 'orders' ? 'text-[#b8860b] border-b-2 border-[#b8860b]' : 'text-[#2d1810]/60'}`}
-          >
-            Orders
-          </button>
-          <button
-            onClick={() => setTab('content')}
-            className={`px-4 py-3 font-medium ${tab === 'content' ? 'text-[#b8860b] border-b-2 border-[#b8860b]' : 'text-[#2d1810]/60'}`}
-          >
-            Content
-          </button>
-        </div>
-
-        {/* Products Tab */}
-        {tab === 'products' && (
-          <div>
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold text-[#2d1810]">Manage Products</h2>
-              <button className="btn-primary flex items-center gap-2">
-                <Plus className="w-4 h-4" /> Add Product
-              </button>
+        <section className="grid gap-4 md:grid-cols-3">
+          {[
+            { label: 'Total products', value: String(products.length), icon: Package },
+            { label: 'Total orders', value: '0', icon: ShoppingCart },
+            { label: 'Total revenue', value: '₹0', icon: CircleDollarSign },
+          ].map((card) => (
+            <div key={card.label} className="card-surface p-6">
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[rgba(27,61,47,0.08)]">
+                <card.icon className="h-5 w-5 text-[#C89B3C]" />
+              </div>
+              <p className="mt-5 text-sm font-bold uppercase tracking-[0.16em] text-[#1B3D2F]/54">
+                {card.label}
+              </p>
+              <p className="mt-3 text-4xl text-[#1B3D2F]">{card.value}</p>
             </div>
-            <div className="bg-white border border-[#e8dfd0] rounded-xl overflow-hidden">
-              <table className="w-full">
-                <thead className="bg-[#f5f0e8]">
-                  <tr>
-                    <th className="text-left p-4 font-medium text-[#2d1810]">Product</th>
-                    <th className="text-left p-4 font-medium text-[#2d1810]">Category</th>
-                    <th className="text-left p-4 font-medium text-[#2d1810]">Price</th>
-                    <th className="text-left p-4 font-medium text-[#2d1810]">Stock</th>
-                    <th className="text-left p-4 font-medium text-[#2d1810]">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {products.map((product) => (
-                    <tr key={product.id} className="border-t border-[#e8dfd0]">
-                      <td className="p-4">
-                        <p className="font-medium text-[#2d1810]">{product.name}</p>
-                        <p className="text-sm text-[#2d1810]/60">{product.weight}</p>
-                      </td>
-                      <td className="p-4 text-[#2d1810]/70">{product.category}</td>
-                      <td className="p-4">
-                        <span className="font-medium text-[#b8860b]">₹{product.price}</span>
-                      </td>
-                      <td className="p-4">
-                        <span className={`px-2 py-1 rounded-full text-xs ${product.inStock ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                          {product.inStock ? 'In Stock' : 'Out of Stock'}
-                        </span>
-                      </td>
-                      <td className="p-4">
-                        <div className="flex gap-2">
-                          <button className="p-2 hover:bg-[#f5f0e8] rounded"><Eye className="w-4 h-4 text-[#2d1810]/60" /></button>
-                          <button className="p-2 hover:bg-[#f5f0e8] rounded"><Edit className="w-4 h-4 text-[#2d1810]/60" /></button>
-                          <button className="p-2 hover:bg-red-50 rounded"><Trash className="w-4 h-4 text-red-500" /></button>
-                        </div>
-                      </td>
+          ))}
+        </section>
+
+        <section className="card-surface mt-8 p-5 md:p-6">
+          <div className="flex flex-wrap gap-3 border-b border-[rgba(27,61,47,0.08)] pb-4">
+            {tabs.map((entry) => {
+              const active = tab === entry;
+              return (
+                <button
+                  key={entry}
+                  type="button"
+                  onClick={() => setTab(entry)}
+                  className={`chip border ${
+                    active
+                      ? 'border-[rgba(200,155,60,0.45)] bg-[#1B3D2F] text-[#F7F3EB]'
+                      : 'border-[rgba(27,61,47,0.08)] bg-[rgba(255,252,247,0.68)] text-[#1B3D2F]'
+                  }`}
+                >
+                  {entry}
+                </button>
+              );
+            })}
+          </div>
+
+          {tab === 'products' && (
+            <div className="mt-6">
+              <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <h2 className="text-3xl text-[#1B3D2F]">Manage products</h2>
+                  <p className="mt-2 text-sm text-[#1B3D2F]/62">
+                    Add or refine the catalogue in `src/data/products.ts`.
+                  </p>
+                </div>
+                <button type="button" className="btn-primary">
+                  <Plus className="h-4 w-4" />
+                  Add Product
+                </button>
+              </div>
+
+              <div className="overflow-x-auto rounded-[1.5rem] border border-[rgba(27,61,47,0.08)]">
+                <table className="min-w-full bg-[rgba(255,252,247,0.74)] text-left">
+                  <thead className="bg-[rgba(247,243,235,0.92)]">
+                    <tr className="text-sm uppercase tracking-[0.14em] text-[#1B3D2F]/56">
+                      <th className="px-4 py-4">Product</th>
+                      <th className="px-4 py-4">Category</th>
+                      <th className="px-4 py-4">Price</th>
+                      <th className="px-4 py-4">Stock</th>
+                      <th className="px-4 py-4">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {products.map((product) => (
+                      <tr key={product.id} className="border-t border-[rgba(27,61,47,0.08)]">
+                        <td className="px-4 py-4">
+                          <p className="font-bold text-[#1B3D2F]">{product.name}</p>
+                          <p className="mt-1 text-sm text-[#1B3D2F]/58">{product.weight}</p>
+                        </td>
+                        <td className="px-4 py-4 text-sm text-[#1B3D2F]/64">{product.category}</td>
+                        <td className="px-4 py-4 font-bold text-[#1B3D2F]">₹{product.price}</td>
+                        <td className="px-4 py-4">
+                          <span
+                            className={`chip ${
+                              product.inStock
+                                ? 'border border-[rgba(27,61,47,0.08)] bg-[rgba(27,61,47,0.08)] text-[#1B3D2F]'
+                                : 'border border-[rgba(180,68,44,0.18)] bg-[rgba(180,68,44,0.08)] text-[#8a3f29]'
+                            }`}
+                          >
+                            {product.inStock ? 'In Stock' : 'Out of Stock'}
+                          </span>
+                        </td>
+                        <td className="px-4 py-4">
+                          <div className="flex gap-2">
+                            {[Eye, Edit3, Trash2].map((Icon, index) => (
+                              <button
+                                key={`${product.id}-${index}`}
+                                type="button"
+                                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(27,61,47,0.08)] bg-white/70 text-[#1B3D2F]/70 hover:border-[rgba(200,155,60,0.4)] hover:text-[#C89B3C]"
+                              >
+                                <Icon className="h-4 w-4" />
+                              </button>
+                            ))}
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Orders Tab */}
-        {tab === 'orders' && (
-          <div className="text-center py-12">
-            <ShoppingCart className="w-16 h-16 text-[#b8860b]/30 mx-auto mb-4" />
-            <h2 className="text-xl font-bold text-[#2d1810] mb-2">No Orders Yet</h2>
-            <p className="text-[#2d1810]/60">Orders will appear here when customers place them.</p>
-          </div>
-        )}
+          {tab === 'orders' && (
+            <div className="py-16 text-center">
+              <ShoppingCart className="mx-auto h-10 w-10 text-[#C89B3C]" />
+              <h2 className="mt-5 text-3xl text-[#1B3D2F]">No orders yet</h2>
+              <p className="mt-3 text-sm leading-7 text-[#1B3D2F]/62">
+                Orders will appear here once checkout data is connected to a backend or CMS.
+              </p>
+            </div>
+          )}
 
-        {/* Content Tab */}
-        {tab === 'content' && (
-          <div>
-            <h2 className="text-xl font-bold text-[#2d1810] mb-6">Manage Content</h2>
-            <div className="space-y-4">
-              {['About Us', 'FAQ', 'Shipping & Returns', 'Contact Page'].map((page) => (
-                <div key={page} className="bg-white border border-[#e8dfd0] rounded-xl p-4 flex justify-between items-center">
-                  <span className="font-medium text-[#2d1810]">{page}</span>
-                  <button className="btn-secondary text-sm">Edit Content</button>
+          {tab === 'content' && (
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {['About Us', 'FAQ', 'Shipping & Returns', 'Contact Details'].map((entry) => (
+                <div key={entry} className="rounded-[1.5rem] border border-[rgba(27,61,47,0.08)] bg-[rgba(247,243,235,0.74)] p-5">
+                  <p className="text-xl text-[#1B3D2F]">{entry}</p>
+                  <p className="mt-2 text-sm leading-7 text-[#1B3D2F]/62">
+                    Update this content directly in the data and route files used by the storefront.
+                  </p>
+                  <button type="button" className="btn-secondary mt-5">
+                    <Edit3 className="h-4 w-4" />
+                    Edit Content
+                  </button>
                 </div>
               ))}
             </div>
-          </div>
-        )}
+          )}
+        </section>
       </div>
     </div>
   );

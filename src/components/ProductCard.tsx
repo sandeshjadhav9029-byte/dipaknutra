@@ -1,102 +1,167 @@
 'use client';
 
 import Link from 'next/link';
-import { ShoppingCart, Star } from 'lucide-react';
+import { ArrowUpRight, ShoppingCart, Star } from 'lucide-react';
 import { Product } from '@/types';
 import { useCartStore } from '@/store/cart';
-import { useState } from 'react';
 
 interface ProductCardProps {
   product: Product;
 }
 
+const categoryStyles: Record<string, { glow: string; panel: string; accent: string; label: string }> = {
+  'Raw Cashews': {
+    glow: 'radial-gradient(circle at 30% 20%, rgba(200,155,60,0.34), transparent 46%)',
+    panel: 'linear-gradient(145deg, rgba(255,248,231,0.96), rgba(243,233,210,0.92))',
+    accent: '#C89B3C',
+    label: 'Whole premium grades',
+  },
+  'Flavored Cashews': {
+    glow: 'radial-gradient(circle at 25% 20%, rgba(27,61,47,0.22), transparent 44%)',
+    panel: 'linear-gradient(145deg, rgba(242,246,238,0.98), rgba(229,236,223,0.92))',
+    accent: '#1B3D2F',
+    label: 'Bold flavour blends',
+  },
+  Almonds: {
+    glow: 'radial-gradient(circle at 70% 20%, rgba(200,155,60,0.28), transparent 44%)',
+    panel: 'linear-gradient(145deg, rgba(252,246,239,0.98), rgba(239,228,217,0.92))',
+    accent: '#A67D24',
+    label: 'Daily wellness staples',
+  },
+  Raisins: {
+    glow: 'radial-gradient(circle at 25% 30%, rgba(116,77,28,0.16), transparent 42%)',
+    panel: 'linear-gradient(145deg, rgba(247,238,228,0.98), rgba(235,221,206,0.92))',
+    accent: '#8B5B28',
+    label: 'Naturally sweet picks',
+  },
+  Walnuts: {
+    glow: 'radial-gradient(circle at 32% 20%, rgba(77,56,36,0.18), transparent 42%)',
+    panel: 'linear-gradient(145deg, rgba(247,240,233,0.98), rgba(232,223,213,0.92))',
+    accent: '#6B4C2F',
+    label: 'Rich kernel crunch',
+  },
+  Dates: {
+    glow: 'radial-gradient(circle at 65% 25%, rgba(123,55,39,0.16), transparent 46%)',
+    panel: 'linear-gradient(145deg, rgba(250,240,232,0.98), rgba(238,223,211,0.92))',
+    accent: '#8C4A32',
+    label: 'Soft caramel sweetness',
+  },
+};
+
 export default function ProductCard({ product }: ProductCardProps) {
   const addItem = useCartStore((state) => state.addItem);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    addItem(product, 1);
-  };
+  const categoryStyle = categoryStyles[product.category] ?? categoryStyles['Raw Cashews'];
+  const savings =
+    product.originalPrice && product.originalPrice > product.price
+      ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
+      : null;
 
   return (
-    <Link 
-      href={`/product/${product.slug}`} 
-      className="card block group"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{ backgroundColor: '#F7F3EB' }}
-    >
-      <div className="relative aspect-square bg-gradient-to-br from-[#F7F3EB] to-[#e8dfd0] overflow-hidden flex items-center justify-center p-4">
-        {/* Product Image - Kokam Bottle SVG */}
-        <div className={`relative w-28 h-36 transition-transform duration-300 ${isHovered ? 'scale-110' : 'scale-100'}`}>
-          <svg viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-            <defs>
-              <linearGradient id={`grad-${product.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#C89B3C" />
-                <stop offset="100%" stopColor="#8B6914" />
-              </linearGradient>
-            </defs>
-            <path d="M25 0H55V10H65V20H70V90C70 95.5228 65.5228 100 60 100H20C14.4772 100 10 95.5228 10 90V20H15V10H25V0Z" fill={`url(#grad-${product.id})`}/>
-            <ellipse cx="40" cy="8" rx="20" ry="5" fill="#D4A84B"/>
-            <ellipse cx="40" cy="65" rx="25" ry="20" fill="#1B3D2F" fillOpacity="0.1"/>
-            <ellipse cx="32" cy="55" rx="8" ry="6" fill="white" fillOpacity="0.2"/>
-          </svg>
+    <article className="card group flex h-full flex-col border-[rgba(27,61,47,0.08)] bg-[rgba(255,252,247,0.84)]">
+      <Link href={`/product/${product.slug}`} className="block">
+        <div className="relative overflow-hidden p-5">
+          <div
+            className="relative overflow-hidden rounded-[1.4rem] border border-white/55 p-5"
+            style={{
+              backgroundImage: `${categoryStyle.glow}, ${categoryStyle.panel}`,
+            }}
+          >
+            <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(255,255,255,0.4),transparent)]" />
+
+            <div className="relative flex items-start justify-between gap-3">
+              <div className="space-y-2">
+                <span className="chip-gold chip">{product.weight}</span>
+                <p className="text-[0.68rem] font-bold uppercase tracking-[0.16em] text-[#1B3D2F]/55">
+                  {categoryStyle.label}
+                </p>
+              </div>
+
+              <div className="flex flex-col items-end gap-2">
+                {savings ? (
+                  <span className="chip chip-forest">{savings}% Off</span>
+                ) : (
+                  <span className="chip border border-white/65 bg-white/50 text-[#1B3D2F]">
+                    Featured
+                  </span>
+                )}
+                {product.grade && (
+                  <span className="chip border border-[rgba(27,61,47,0.08)] bg-white/60 text-[#1B3D2F]">
+                    {product.grade}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            <div className="relative mt-8 flex min-h-36 items-end justify-between gap-4">
+              <div className="max-w-[70%]">
+                <p className="text-[0.72rem] font-bold uppercase tracking-[0.18em] text-[#1B3D2F]/56">
+                  {product.category}
+                </p>
+                <h3 className="mt-2 text-2xl text-[#1B3D2F] transition-colors group-hover:text-[#C89B3C]">
+                  {product.name}
+                </h3>
+              </div>
+
+              <div
+                className="relative h-28 w-24 shrink-0 rounded-[1.8rem] border border-white/70 shadow-[0_16px_30px_rgba(27,61,47,0.12)] transition-transform duration-300 group-hover:-translate-y-1 group-hover:rotate-3"
+                style={{
+                  background: `linear-gradient(180deg, rgba(255,255,255,0.7), ${categoryStyle.accent})`,
+                }}
+              >
+                <div className="absolute inset-x-4 top-3 h-4 rounded-full bg-white/55" />
+                <div className="absolute inset-x-3 bottom-4 rounded-[1.2rem] border border-white/30 bg-[rgba(27,61,47,0.14)] px-3 py-2 text-center text-[0.68rem] font-bold uppercase tracking-[0.14em] text-white">
+                  DN
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        
-        {/* Badges */}
-        <div className="absolute top-2 left-2 flex flex-col gap-1">
-          {product.originalPrice && (
-            <span className="px-2 py-1 bg-red-500 text-white text-xs font-bold rounded">
-              {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
-            </span>
-          )}
-          {product.grade && (
-            <span className="px-2 py-1 text-white text-xs font-bold rounded" style={{ backgroundColor: '#C89B3C' }}>
-              {product.grade}
-            </span>
-          )}
-          {product.featured && !product.originalPrice && (
-            <span className="px-2 py-1 bg-green-600 text-white text-xs font-bold rounded">
-              Best Seller
-            </span>
-          )}
+      </Link>
+
+      <div className="flex flex-1 flex-col px-5 pb-5">
+        <p className="text-sm leading-6 text-[#1B3D2F]/68">{product.description}</p>
+
+        <div className="mt-4 flex items-center gap-1 text-[#C89B3C]">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <Star key={index} className="h-3.5 w-3.5 fill-current" />
+          ))}
+          <span className="ml-2 text-xs font-bold uppercase tracking-[0.14em] text-[#1B3D2F]/52">
+            4.9 curated rating
+          </span>
         </div>
 
-        {/* Quick Add Button */}
-        <button
-          onClick={handleAddToCart}
-          className={`absolute bottom-3 right-3 w-10 h-10 text-white rounded-full flex items-center justify-center transition-all hover:scale-110 shadow-lg ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}
-          style={{ backgroundColor: '#1B3D2F' }}
-        >
-          <ShoppingCart className="w-5 h-5" />
-        </button>
-      </div>
-      
-      <div className="p-4" style={{ backgroundColor: '#F7F3EB' }}>
-        <p className="text-xs font-medium mb-1" style={{ color: '#C89B3C' }}>{product.category}</p>
-        <h3 className="font-semibold mb-1 line-clamp-1 group-hover:text-[#C89B3C] transition-colors" style={{ color: '#1B3D2F' }}>
-          {product.name}
-        </h3>
-        <p className="text-xs mb-2" style={{ color: '#1B3D2F', opacity: 0.6 }}>{product.weight}</p>
-        
-        {/* Rating */}
-        <div className="flex items-center gap-1 mb-3">
-          {[1, 2, 3, 4, 5].map((s) => (
-            <Star key={s} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
-          ))}
-          <span className="text-xs ml-1" style={{ color: '#1B3D2F', opacity: 0.6 }}>4.9 (128 reviews)</span>
-        </div>
-        
-        <div className="flex items-center justify-between">
-          <div className="flex items-baseline gap-2">
-            <span className="text-lg font-bold" style={{ color: '#C89B3C' }}>₹{product.price}</span>
-            {product.originalPrice && (
-              <span className="text-sm line-through" style={{ color: '#1B3D2F', opacity: 0.5 }}>₹{product.originalPrice}</span>
-            )}
+        <div className="mt-5 flex items-end justify-between gap-4">
+          <div className="space-y-1">
+            <p className="text-[0.7rem] font-bold uppercase tracking-[0.16em] text-[#1B3D2F]/48">
+              Starting at
+            </p>
+            <div className="flex items-baseline gap-2">
+              <span className="text-2xl font-bold text-[#1B3D2F]">₹{product.price}</span>
+              {product.originalPrice && (
+                <span className="text-sm text-[#1B3D2F]/40 line-through">₹{product.originalPrice}</span>
+              )}
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Link
+              href={`/product/${product.slug}`}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(27,61,47,0.12)] bg-[rgba(255,252,247,0.7)] text-[#1B3D2F] hover:border-[rgba(200,155,60,0.45)] hover:text-[#C89B3C]"
+              aria-label={`View ${product.name}`}
+            >
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+            <button
+              type="button"
+              onClick={() => addItem(product, 1)}
+              className="btn-primary min-w-[9rem]"
+            >
+              <ShoppingCart className="h-4 w-4" />
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>
-    </Link>
+    </article>
   );
 }

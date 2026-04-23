@@ -238,7 +238,7 @@ export const products: Product[] = [
     weight: '500g'
   },
   {
-    id: 'dates ajwa',
+    id: 'dates-ajwa',
     name: 'Ajwa Dates',
     slug: 'ajwa-dates',
     description: 'Premium Ajwa dates from Madina. Traditional specialty with numerous health benefits.',
@@ -291,7 +291,7 @@ export const faqs: FAQ[] = [
   {
     id: '6',
     question: 'How long does delivery take?',
-    answer: 'Delivery typically takes 3-7 business days within India. Express delivery options available at checkout.'
+    answer: 'Delivery typically takes 5-7 business days within India. Remote locations may take an additional 2-3 days.'
   },
   {
     id: '7',
@@ -308,8 +308,9 @@ export const faqs: FAQ[] = [
 export const siteContent = {
   brand: {
     name: 'Dipak Nutra',
-    tagline: 'Premium Dry Fruits & Natural Products',
-    description: 'Your trusted source for premium quality dry fruits, cashews, almonds, and natural products. Freshness guaranteed.',
+    tagline: "Nature's Goodness, Your Wellness",
+    description: 'Premium dry fruits selected for freshness, natural flavour, and everyday wellness.',
+    announcement: 'Free Shipping on orders above ₹500 | Use code: DIPAK10 for 10% OFF above ₹3000',
     phone: '+919930982686',
     email: 'contact@dipaknutra.com',
     address: 'Thane West, Maharashtra – 400601, India',

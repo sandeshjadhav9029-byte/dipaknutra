@@ -1,175 +1,231 @@
 import Link from 'next/link';
-import { ArrowRight, Nut, Leaf, Truck, Shield, Award } from 'lucide-react';
+import {
+  ArrowRight,
+  Award,
+  Leaf,
+  ShieldCheck,
+  ShoppingBag,
+  Sprout,
+  Truck,
+} from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
-import { products, categories } from '@/data/products';
+import { categories, products, siteContent } from '@/data/products';
+
+const promises = [
+  {
+    icon: Leaf,
+    title: '100% Natural Selection',
+    copy: 'Sourced from trusted farms and packed for clean flavour without unnecessary additives.',
+  },
+  {
+    icon: Award,
+    title: 'Premium Handpicked Grades',
+    copy: 'From W180 and W240 cashews to Mamra almonds, every batch is selected for visible quality.',
+  },
+  {
+    icon: Truck,
+    title: 'Fast Pan-India Delivery',
+    copy: 'Standard delivery in 5-7 business days with free shipping on orders above ₹500.',
+  },
+];
+
+const highlights = [
+  { stat: '18+', label: 'Premium dry fruit variants' },
+  { stat: '₹350-₹1400', label: 'Price range across collections' },
+  { stat: '7 Days', label: 'Return support for damaged orders' },
+];
 
 export default function Home() {
-  const featuredProducts = products.filter(p => p.featured).slice(0, 6);
+  const featuredProducts = products.filter((product) => product.featured).slice(0, 8);
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-[#F7F3EB] to-[#e8dfd0] overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-20 left-10 w-64 h-64 bg-[#C89B3C]/30 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#1B3D2F]/20 rounded-full blur-3xl" />
-        </div>
-        <div className="container-custom py-16 md:py-24 relative">
-          <div className="max-w-2xl">
-            <span className="inline-block px-4 py-2 bg-[#C89B3C] text-white font-medium rounded-full mb-4">
-              🏆 Premium Quality Guaranteed
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-serif" style={{ color: '#1B3D2F' }}>
-              Premium Dry Fruits for a Healthy Life
-            </h1>
-            <p className="text-lg mb-8" style={{ color: '#1B3D2F', opacity: 0.7 }}>
-              Discover the finest selection of cashews, almonds, raisins & more. 
-              Farm-fresh quality delivered to your doorstep. 100% pure, natural & chemical-free.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Link href="/shop" className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-white" style={{ backgroundColor: '#1B3D2F' }}>
-                Shop Now <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link href="/about" className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold border-2" style={{ borderColor: '#1B3D2F', color: '#1B3D2F' }}>
-                Our Story
-              </Link>
+      <section className="section-shell pt-8">
+        <div className="container-custom">
+          <div className="page-hero">
+            <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+              <div className="relative z-10 max-w-3xl">
+                <div className="eyebrow animate-rise">
+                  <Sprout className="h-4 w-4 text-[#C89B3C]" />
+                  Premium Dry Fruits from Thane, Maharashtra
+                </div>
+                <h1 className="section-title mt-6 animate-rise stagger-1">
+                  Nature&apos;s goodness, composed into a refined pantry of everyday wellness.
+                </h1>
+                <p className="section-copy mt-6 text-lg animate-rise stagger-2">
+                  Dipak Nutra curates premium cashews, almonds, raisins, walnuts, and dates with a
+                  sharp focus on grade, freshness, and flavour. The result is a storefront built
+                  around trusted natural products, not commodity bulk stock.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-4 animate-rise stagger-3">
+                  <Link href="/shop" className="btn-primary">
+                    Start Shopping
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
+                  <Link href="/about" className="btn-secondary">
+                    Discover the Brand
+                  </Link>
+                </div>
+
+                <div className="mt-10 grid gap-4 sm:grid-cols-3">
+                  {highlights.map((highlight) => (
+                    <div
+                      key={highlight.label}
+                      className="rounded-[1.45rem] border border-[rgba(27,61,47,0.08)] bg-[rgba(255,252,247,0.62)] p-4 shadow-[0_16px_36px_rgba(27,61,47,0.08)]"
+                    >
+                      <p className="text-2xl font-bold text-[#1B3D2F]">{highlight.stat}</p>
+                      <p className="mt-2 text-sm text-[#1B3D2F]/62">{highlight.label}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="relative z-10">
+                <div className="grid gap-4">
+                  <div className="rounded-[2rem] border border-[rgba(27,61,47,0.1)] bg-[linear-gradient(145deg,rgba(27,61,47,0.95),rgba(18,45,34,0.94))] p-6 text-[#F7F3EB] shadow-[0_30px_80px_rgba(27,61,47,0.18)]">
+                    <div className="flex items-center justify-between">
+                      <span className="chip border border-[rgba(247,243,235,0.14)] bg-[rgba(247,243,235,0.08)] text-[#F7F3EB]">
+                        Signature Promise
+                      </span>
+                      <ShieldCheck className="h-5 w-5 text-[#C89B3C]" />
+                    </div>
+                    <h2 className="mt-6 text-3xl text-[#F7F3EB]">Free shipping above ₹500</h2>
+                    <p className="mt-4 text-sm leading-7 text-[rgba(247,243,235,0.72)]">
+                      {siteContent.brand.announcement}
+                    </p>
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="rounded-[1.7rem] border border-[rgba(27,61,47,0.08)] bg-[rgba(255,252,247,0.74)] p-5">
+                      <p className="section-kicker">Top Seller</p>
+                      <h3 className="mt-3 text-2xl text-[#1B3D2F]">Raw Cashews W240</h3>
+                      <p className="mt-3 text-sm text-[#1B3D2F]/62">
+                        A premium grade with generous size, buttery flavour, and gifting appeal.
+                      </p>
+                    </div>
+                    <div className="rounded-[1.7rem] border border-[rgba(200,155,60,0.24)] bg-[linear-gradient(160deg,rgba(200,155,60,0.18),rgba(255,252,247,0.78))] p-5">
+                      <p className="section-kicker">Customer Care</p>
+                      <h3 className="mt-3 text-2xl text-[#1B3D2F]">7-day return window</h3>
+                      <p className="mt-3 text-sm text-[#1B3D2F]/62">
+                        Damaged or defective orders are supported quickly with photo-based review.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Trust Badges */}
-      <section className="py-8 bg-white border-b border-[#e8dfd0]">
+      <section className="section-shell">
         <div className="container-custom">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                <Leaf className="w-6 h-6" style={{ color: '#1B3D2F' }} />
+          <div className="grid gap-4 md:grid-cols-3">
+            {promises.map((promise, index) => (
+              <div
+                key={promise.title}
+                className={`rounded-[1.7rem] border border-[rgba(27,61,47,0.08)] bg-[rgba(255,252,247,0.74)] p-6 shadow-[0_18px_36px_rgba(27,61,47,0.08)] animate-rise stagger-${index + 1}`}
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[rgba(27,61,47,0.08)] text-[#1B3D2F]">
+                  <promise.icon className="h-5 w-5 text-[#C89B3C]" />
+                </div>
+                <h2 className="mt-5 text-2xl text-[#1B3D2F]">{promise.title}</h2>
+                <p className="mt-3 text-sm leading-7 text-[#1B3D2F]/64">{promise.copy}</p>
               </div>
-              <div>
-                <h3 className="font-semibold" style={{ color: '#1B3D2F' }}>100% Natural</h3>
-                <p className="text-xs" style={{ color: '#1B3D2F', opacity: 0.6 }}>No preservatives</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
-                <Award className="w-6 h-6" style={{ color: '#C89B3C' }} />
-              </div>
-              <div>
-                <h3 className="font-semibold" style={{ color: '#1B3D2F' }}>Premium Quality</h3>
-                <p className="text-xs" style={{ color: '#1B3D2F', opacity: 0.6 }}>Hand-selected</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <Truck className="w-6 h-6" style={{ color: '#1B3D2F' }} />
-              </div>
-              <div>
-                <h3 className="font-semibold" style={{ color: '#1B3D2F' }}>Fast Delivery</h3>
-                <p className="text-xs" style={{ color: '#1B3D2F', opacity: 0.6 }}>Across India</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                <Shield className="w-6 h-6" style={{ color: '#1B3D2F' }} />
-              </div>
-              <div>
-                <h3 className="font-semibold" style={{ color: '#1B3D2F' }}>Quality Assured</h3>
-                <p className="text-xs" style={{ color: '#1B3D2F', opacity: 0.6 }}>Lab tested</p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="py-16 md:py-20">
+      <section className="section-shell pt-0">
         <div className="container-custom">
-          <div className="flex items-center justify-between mb-12">
+          <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-2 font-serif" style={{ color: '#1B3D2F' }}>Best Sellers</h2>
-              <p style={{ color: '#1B3D2F', opacity: 0.6 }}>Our most popular dry fruits & nuts</p>
+              <p className="section-kicker">Featured Collection</p>
+              <h2 className="mt-3 text-4xl text-[#1B3D2F]">Best sellers for gifting, snacking, and daily rituals.</h2>
+              <p className="section-copy mt-4">
+                A mix of raw and flavoured signatures selected from the full Dipak Nutra range.
+              </p>
             </div>
-            <Link href="/shop" className="hidden md:inline-flex items-center gap-2 px-6 py-3 rounded-full border-2" style={{ borderColor: '#1B3D2F', color: '#1B3D2F' }}>
-              View All Products <ArrowRight className="w-5 h-5" />
+            <Link href="/shop" className="btn-secondary w-fit">
+              View Full Catalogue
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
             {featuredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
-          <div className="text-center mt-12 md:hidden">
-            <Link href="/shop" className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2" style={{ borderColor: '#1B3D2F', color: '#1B3D2F' }}>
-              View All Products <ArrowRight className="w-5 h-5" />
-            </Link>
+        </div>
+      </section>
+
+      <section className="section-shell">
+        <div className="container-custom">
+          <div className="rounded-[2rem] border border-[rgba(27,61,47,0.1)] bg-[linear-gradient(145deg,rgba(27,61,47,0.96),rgba(19,47,36,0.95))] px-6 py-10 text-[#F7F3EB] shadow-[0_30px_80px_rgba(27,61,47,0.18)] md:px-10">
+            <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="section-kicker text-[#C89B3C]">Shop by Category</p>
+                <h2 className="mt-3 text-4xl text-[#F7F3EB]">From classic whole grades to bold seasoned cashews.</h2>
+              </div>
+              <p className="max-w-xl text-sm leading-7 text-[rgba(247,243,235,0.7)]">
+                Each category has a distinct buying moment, whether you need premium gifting tins,
+                family snack jars, or daily pantry staples.
+              </p>
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {categories.slice(1).map((category) => (
+                <Link
+                  key={category.slug}
+                  href={`/shop?category=${category.slug}`}
+                  className="group rounded-[1.5rem] border border-[rgba(247,243,235,0.12)] bg-[rgba(247,243,235,0.06)] p-5 hover:border-[rgba(200,155,60,0.48)] hover:bg-[rgba(247,243,235,0.1)]"
+                >
+                  <div className="flex items-center justify-between">
+                    <ShoppingBag className="h-5 w-5 text-[#C89B3C]" />
+                    <ArrowRight className="h-4 w-4 text-[#F7F3EB]/65 transition-transform group-hover:translate-x-1" />
+                  </div>
+                  <h3 className="mt-6 text-2xl text-[#F7F3EB]">{category.name}</h3>
+                  <p className="mt-3 text-sm leading-7 text-[rgba(247,243,235,0.65)]">
+                    Explore the {category.name.toLowerCase()} range with premium pack sizes and
+                    ready-to-order selections.
+                  </p>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Shop by Category */}
-      <section className="py-16 md:py-20" style={{ backgroundColor: '#1B3D2F' }}>
+      <section className="section-shell pt-0">
         <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-serif">Shop by Category</h2>
-            <p className="text-white/60">Explore our wide range of premium dry fruits</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {categories.slice(1).map((cat) => (
-              <Link key={cat.slug} href={`/shop?category=${cat.slug}`} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 text-center hover:bg-[#C89B3C] transition-all duration-300 group">
-                <div className="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3 group-hover:bg-white/20">
-                  <Nut className="w-7 h-7 text-[#C89B3C] group-hover:text-white" />
+          <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="rounded-[1.9rem] border border-[rgba(27,61,47,0.08)] bg-[rgba(255,252,247,0.76)] p-8 shadow-[0_20px_46px_rgba(27,61,47,0.08)]">
+              <p className="section-kicker">Why Dipak Nutra</p>
+              <h2 className="mt-3 text-4xl text-[#1B3D2F]">A premium dry fruit brand with a calm, trustworthy point of view.</h2>
+              <p className="mt-5 text-sm leading-7 text-[#1B3D2F]/66">
+                The brand combines exact grading, dependable delivery, and thoughtful support, so
+                the buying experience feels as considered as the products themselves.
+              </p>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-3">
+              {[
+                'Exact brand colours and premium typography',
+                'Checkout options for UPI, bank transfer, and COD',
+                'FAQ coverage for cashew grades, delivery, and returns',
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="rounded-[1.6rem] border border-[rgba(27,61,47,0.08)] bg-[linear-gradient(180deg,rgba(255,252,247,0.9),rgba(247,243,235,0.72))] p-6"
+                >
+                  <Leaf className="h-5 w-5 text-[#C89B3C]" />
+                  <p className="mt-5 text-sm leading-7 text-[#1B3D2F]/68">{item}</p>
                 </div>
-                <h3 className="font-semibold text-white text-sm">{cat.name}</h3>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us */}
-      <section className="py-16 md:py-20 bg-white">
-        <div className="container-custom">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 font-serif" style={{ color: '#1B3D2F' }}>Why Choose Dipak Nutra?</h2>
-            <p style={{ color: '#1B3D2F', opacity: 0.6, maxWidth: '600px', margin: '0 auto' }}>We are committed to providing the finest quality dry fruits sourced directly from trusted farmers.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-8 rounded-2xl" style={{ backgroundColor: '#F7F3EB' }}>
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#1B3D2F' }}>
-                <Leaf className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3" style={{ color: '#1B3D2F' }}>Farm Fresh Quality</h3>
-              <p style={{ color: '#1B3D2F', opacity: 0.7 }}>Sourced directly from farms, ensuring maximum freshness and natural taste in every product.</p>
-            </div>
-            <div className="text-center p-8 rounded-2xl" style={{ backgroundColor: '#F7F3EB' }}>
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#C89B3C' }}>
-                <Shield className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3" style={{ color: '#1B3D2F' }}>100% Pure & Natural</h3>
-              <p style={{ color: '#1B3D2F', opacity: 0.7 }}>No artificial preservatives, colors, or additives. Just pure, natural goodness.</p>
-            </div>
-            <div className="text-center p-8 rounded-2xl" style={{ backgroundColor: '#F7F3EB' }}>
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#1B3D2F' }}>
-                <Truck className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-3" style={{ color: '#1B3D2F' }}>Pan India Delivery</h3>
-              <p style={{ color: '#1B3D2F', opacity: 0.7 }}>Fast and reliable delivery across India with secure packaging.</p>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-16 md:py-20" style={{ backgroundColor: '#C89B3C' }}>
-        <div className="container-custom text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-serif">Ready to Order?</h2>
-          <p className="text-white/90 mb-8 max-w-xl mx-auto text-lg">
-            Browse our collection of premium dry fruits and place your order today.
-          </p>
-          <Link href="/shop" className="inline-flex items-center gap-2 bg-white text-[#C89B3C] px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-colors">
-            Start Shopping <ArrowRight className="w-5 h-5" />
-          </Link>
         </div>
       </section>
     </div>

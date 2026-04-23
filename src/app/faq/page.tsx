@@ -1,33 +1,53 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, CircleHelp } from 'lucide-react';
 import { faqs } from '@/data/products';
 
 export default function FAQPage() {
-  const [open, setOpen] = useState<string | null>(null);
+  const [openId, setOpenId] = useState<string>(faqs[0]?.id ?? '');
 
   return (
-    <div className="min-h-screen py-12 md:py-16">
+    <div className="page-shell">
       <div className="container-custom">
-        <h1 className="text-4xl font-bold text-[#2d1810] mb-2 font-heading text-center">Frequently Asked Questions</h1>
-        <p className="text-[#2d1810]/60 text-center mb-12">Find answers to common questions</p>
-
-        <div className="max-w-2xl mx-auto space-y-4">
-          {faqs.map((faq) => (
-            <div key={faq.id} className="bg-white border border-[#e8dfd0] rounded-xl overflow-hidden">
-              <button
-                onClick={() => setOpen(open === faq.id ? null : faq.id)}
-                className="w-full p-4 text-left flex justify-between items-center"
-              >
-                <span className="font-medium text-[#2d1810]">{faq.question}</span>
-                <ChevronDown className={`w-5 h-5 text-[#b8860b] transition-transform ${open === faq.id ? 'rotate-180' : ''}`} />
-              </button>
-              {open === faq.id && (
-                <div className="px-4 pb-4 text-[#2d1810]/70">{faq.answer}</div>
-              )}
+        <section className="page-hero mb-8">
+          <div className="max-w-3xl">
+            <div className="eyebrow">
+              <CircleHelp className="h-4 w-4 text-[#C89B3C]" />
+              Frequently Asked Questions
             </div>
-          ))}
+            <h1 className="section-title mt-6">Answers about cashew grades, delivery timelines, payments, and returns.</h1>
+            <p className="section-copy mt-5">
+              The FAQ covers the core concerns mentioned in the Dipak Nutra brief, including W320
+              and W240 grade explanations.
+            </p>
+          </div>
+        </section>
+
+        <div className="mx-auto max-w-4xl space-y-4">
+          {faqs.map((faq) => {
+            const isOpen = faq.id === openId;
+
+            return (
+              <div key={faq.id} className="card-surface overflow-hidden">
+                <button
+                  type="button"
+                  onClick={() => setOpenId(isOpen ? '' : faq.id)}
+                  className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left md:px-7"
+                >
+                  <span className="text-xl text-[#1B3D2F]">{faq.question}</span>
+                  <ChevronDown
+                    className={`h-5 w-5 shrink-0 text-[#C89B3C] ${isOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                {isOpen && (
+                  <div className="border-t border-[rgba(27,61,47,0.08)] px-5 py-5 text-sm leading-8 text-[#1B3D2F]/68 md:px-7">
+                    {faq.answer}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

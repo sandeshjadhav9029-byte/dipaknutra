@@ -2,10 +2,11 @@ import type { Metadata } from 'next';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { siteContent } from '@/data/products';
 
 export const metadata: Metadata = {
-  title: 'Dipak Nutra - Premium Dry Fruits & Natural Products',
-  description: 'Your trusted source for premium quality dry fruits, cashews, almonds, and natural products. Freshness guaranteed.',
+  title: `${siteContent.brand.name} | Premium Dry Fruits`,
+  description: siteContent.brand.description,
 };
 
 export default function RootLayout({
@@ -15,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="text-[#1B3D2F] antialiased">
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />

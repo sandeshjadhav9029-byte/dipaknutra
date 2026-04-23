@@ -1,130 +1,120 @@
 import Link from 'next/link';
-import { Phone, Mail, MapPin, Star, Heart } from 'lucide-react';
+import { Mail, MapPin, Phone, ShieldCheck, Truck } from 'lucide-react';
+import BrandLogo from '@/components/BrandLogo';
 import { siteContent } from '@/data/products';
+
+const footerLinks = {
+  company: [
+    { href: '/about', label: 'About Us' },
+    { href: '/contact', label: 'Contact' },
+    { href: '/faq', label: 'FAQ' },
+    { href: '/shipping', label: 'Shipping & Returns' },
+  ],
+  collections: [
+    { href: '/shop?category=raw-cashews', label: 'Raw Cashews' },
+    { href: '/shop?category=flavored-cashews', label: 'Flavored Cashews' },
+    { href: '/shop?category=almonds', label: 'Almonds' },
+    { href: '/shop?category=raisins', label: 'Raisins' },
+    { href: '/shop?category=walnuts', label: 'Walnuts' },
+    { href: '/shop?category=dates', label: 'Dates' },
+  ],
+};
 
 export default function Footer() {
   const { brand } = siteContent;
-  
-  const footerLinks = {
-    quickLinks: [
-      { href: '/about', label: 'About Us' },
-      { href: '/contact', label: 'Contact Us' },
-      { href: '/faq', label: 'FAQ' },
-      { href: '/shipping', label: 'Shipping Policy' },
-      { href: '/shipping', label: 'Return Policy' },
-      { href: '/shipping', label: 'Privacy Policy' },
-    ],
-    shop: [
-      { href: '/shop?category=raw-cashews', label: 'Raw Cashews' },
-      { href: '/shop?category=flavored-cashews', label: 'Flavored Cashews' },
-      { href: '/shop?category=almonds', label: 'Almonds' },
-      { href: '/shop?category=raisins', label: 'Raisins' },
-      { href: '/shop?category=walnuts', label: 'Walnuts' },
-      { href: '/shop?category=dates', label: 'Dates' },
-    ],
-  };
 
   return (
-    <footer className="bg-[#1B3D2F] text-white">
-      <div className="container-custom py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          {/* Brand with Logo - Based on Brand Spec */}
-          <div className="lg:col-span-1">
-            <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="relative w-14 h-14">
-                <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                  <rect width="120" height="120" rx="12" fill="#F7F3EB"/>
-                  <text x="28" y="75" fontSize="48" fontFamily="serif" fontWeight="bold" fill="#1B3D2F">D</text>
-                  <text x="62" y="75" fontSize="48" fontFamily="serif" fontWeight="bold" fill="#C89B3C">N</text>
-                  <path d="M75 35 Q85 20 95 30 Q90 45 80 50 Q75 45 75 35" fill="#1B3D2F"/>
-                  <path d="M78 38 Q85 28 92 35" stroke="#F7F3EB" strokeWidth="1.5" fill="none"/>
-                </svg>
+    <footer className="mt-12 border-t border-[rgba(27,61,47,0.08)] bg-[linear-gradient(180deg,#17362a,#10261d)] text-[#F7F3EB]">
+      <div className="container-custom py-14">
+        <div className="grid gap-10 lg:grid-cols-[1.2fr_0.7fr_0.7fr_0.9fr]">
+          <div className="max-w-md">
+            <BrandLogo inverse className="mb-5" />
+            <p className="text-sm leading-7 text-[rgba(247,243,235,0.76)]">
+              Premium dry fruits selected for flavour, freshness, and everyday wellness.
+              Curated from trusted farms and packed for households that care about quality.
+            </p>
+
+            <div className="mt-6 grid gap-3">
+              <div className="chip border border-[rgba(247,243,235,0.12)] bg-[rgba(247,243,235,0.06)] text-[#F7F3EB]">
+                <Truck className="h-3.5 w-3.5 text-[#C89B3C]" />
+                Free shipping above ₹500
               </div>
-              <div className="flex flex-col">
-                <span className="text-xl font-bold font-serif" style={{ color: '#F7F3EB' }}>
-                  DIPAK <span style={{ color: '#C89B3C' }}>NUTRA</span>
-                </span>
+              <div className="chip border border-[rgba(247,243,235,0.12)] bg-[rgba(247,243,235,0.06)] text-[#F7F3EB]">
+                <ShieldCheck className="h-3.5 w-3.5 text-[#C89B3C]" />
+                7-day return support
               </div>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#C89B3C]">
+              Company
+            </h3>
+            <ul className="space-y-3 text-sm text-[rgba(247,243,235,0.74)]">
+              {footerLinks.company.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="hover:text-[#C89B3C]">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#C89B3C]">
+              Collections
+            </h3>
+            <ul className="space-y-3 text-sm text-[rgba(247,243,235,0.74)]">
+              {footerLinks.collections.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="hover:text-[#C89B3C]">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.18em] text-[#C89B3C]">
+              Contact
+            </h3>
+            <ul className="space-y-4 text-sm text-[rgba(247,243,235,0.74)]">
+              <li className="flex items-start gap-3">
+                <Phone className="mt-0.5 h-4 w-4 text-[#C89B3C]" />
+                <span>{brand.phone}</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Mail className="mt-0.5 h-4 w-4 text-[#C89B3C]" />
+                <span>{brand.email}</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#C89B3C]" />
+                <span>{brand.address}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="my-10 flex items-center gap-3">
+          <span className="h-px flex-1 bg-[rgba(200,155,60,0.36)]" />
+          <span className="h-2 w-2 rounded-full bg-[#C89B3C]" />
+          <span className="h-px flex-1 bg-[rgba(200,155,60,0.36)]" />
+        </div>
+
+        <div className="flex flex-col gap-3 text-sm text-[rgba(247,243,235,0.54)] md:flex-row md:items-center md:justify-between">
+          <p>© {new Date().getFullYear()} Dipak Nutra. All rights reserved.</p>
+          <div className="flex flex-wrap gap-5">
+            <Link href="/shipping" className="hover:text-[#C89B3C]">
+              Shipping Policy
             </Link>
-            <p className="text-white/70 text-sm mb-4">
-              Your trusted source for premium quality dry fruits, cashews, almonds, and natural products. Freshness guaranteed.
-            </p>
-            <div className="flex gap-3">
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#C89B3C] transition-colors">
-                <Star className="w-5 h-5" />
-              </a>
-              <a href="#" className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#C89B3C] transition-colors">
-                <Heart className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-semibold mb-4 text-[#C89B3C]">Quick Links</h4>
-            <ul className="space-y-2">
-              {footerLinks.quickLinks.map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href} className="text-white/70 hover:text-[#C89B3C] text-sm transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Shop */}
-          <div>
-            <h4 className="font-semibold mb-4 text-[#C89B3C]">Shop</h4>
-            <ul className="space-y-2">
-              {footerLinks.shop.map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href} className="text-white/70 hover:text-[#C89B3C] text-sm transition-colors">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h4 className="font-semibold mb-4 text-[#C89B3C]">Contact Us</h4>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2">
-                <Phone className="w-4 h-4 mt-1" style={{ color: '#C89B3C' }} />
-                <span className="text-white/70 text-sm">{brand.phone}</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Mail className="w-4 h-4 mt-1" style={{ color: '#C89B3C' }} />
-                <span className="text-white/70 text-sm">{brand.email}</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <MapPin className="w-4 h-4 mt-1" style={{ color: '#C89B3C' }} />
-                <span className="text-white/70 text-sm">{brand.address}</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Divider with Gold */}
-        <div className="flex items-center justify-center gap-4 my-8">
-          <div className="h-px flex-1 bg-[#C89B3C]"></div>
-          <div className="w-2 h-2 rounded-full bg-[#C89B3C]"></div>
-          <div className="h-px flex-1 bg-[#C89B3C]"></div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="border-t border-white/10 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-white/50 text-sm">
-              © {new Date().getFullYear()} Dipak Nutra. All rights reserved.
-            </p>
-            <div className="flex gap-6">
-              <Link href="/shipping" className="text-white/50 hover:text-white text-sm">Privacy Policy</Link>
-              <Link href="/shipping" className="text-white/50 hover:text-white text-sm">Terms of Service</Link>
-              <Link href="/shipping" className="text-white/50 hover:text-white text-sm">Refund Policy</Link>
-            </div>
+            <Link href="/shipping" className="hover:text-[#C89B3C]">
+              Refund Policy
+            </Link>
+            <Link href="/contact" className="hover:text-[#C89B3C]">
+              Customer Support
+            </Link>
           </div>
         </div>
       </div>

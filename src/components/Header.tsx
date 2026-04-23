@@ -2,144 +2,184 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { ShoppingCart, Menu, X, User, Search, ChevronDown } from 'lucide-react';
+import {
+  ChevronDown,
+  Leaf,
+  Menu,
+  Search,
+  ShieldCheck,
+  ShoppingCart,
+  Store,
+  User,
+  X,
+} from 'lucide-react';
+import BrandLogo from '@/components/BrandLogo';
+import { categories, siteContent } from '@/data/products';
 import { useCartStore } from '@/store/cart';
-import { categories } from '@/data/products';
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+  { href: '/faq', label: 'FAQ' },
+  { href: '/shipping', label: 'Shipping & Returns' },
+];
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
   const itemCount = useCartStore((state) => state.getItemCount());
-
-  const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/shop', label: 'Shop All', hasDropdown: true },
-    { href: '/about', label: 'About Us' },
-    { href: '/contact', label: 'Contact' },
-    { href: '/faq', label: 'FAQ' },
-    { href: '/shipping', label: 'Shipping & Returns' },
-  ];
+  const categoryLinks = categories.slice(1);
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Announcement Bar */}
-      <div className="bg-[#1B3D2F] text-white text-center py-2 text-sm">
-        <span className="inline-flex items-center gap-2">
-          🎉 Free Shipping on orders above ₹500 | Use code: DIPAK10 for 10% OFF above ₹3000
-        </span>
+      <div className="bg-[#1B3D2F] px-4 py-2 text-[#F7F3EB] shadow-[0_10px_30px_rgba(27,61,47,0.22)]">
+        <div className="container-custom flex items-center justify-center gap-2 text-center text-[0.68rem] font-bold uppercase tracking-[0.2em] sm:text-[0.72rem]">
+          <Leaf className="h-3.5 w-3.5 text-[#C89B3C]" />
+          <span>{siteContent.brand.announcement}</span>
+        </div>
       </div>
 
-      {/* Main Header */}
-      <div className="bg-[#F7F3EB]/95 backdrop-blur-sm border-b border-[#e8dfd0]">
-        <div className="container-custom">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            {/* LOGO - Based on Brand Spec */}
-            <Link href="/" className="flex flex-col items-center gap-1">
-              {/* Monogram + Brand Name */}
-              <div className="flex items-center gap-3">
-                {/* DN Monogram with Leaf */}
-                <div className="relative w-12 h-12">
-                  <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                    {/* D in Forest Green */}
-                    <text x="8" y="55" fontSize="38" fontFamily="Georgia, serif" fontWeight="bold" fill="#1B3D2F">D</text>
-                    {/* N in Gold */}
-                    <text x="38" y="55" fontSize="38" fontFamily="Georgia, serif" fontWeight="bold" fill="#C89B3C">N</text>
-                    {/* Leaf on N - elegant curved leaf */}
-                    <path d="M52 18 Q65 8 72 18 Q68 32 58 35 Q52 30 52 18" fill="#1B3D2F"/>
-                    <path d="M55 22 Q62 16 68 22" stroke="#F7F3EB" strokeWidth="1" fill="none"/>
-                    <path d="M56 26 Q60 22 64 26" stroke="#F7F3EB" strokeWidth="0.75" fill="none"/>
-                  </svg>
-                </div>
-                {/* Brand Name */}
-                <div className="flex flex-col">
-                  <span className="text-xl md:text-2xl font-bold tracking-wider font-serif" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
-                    <span style={{ color: '#1B3D2F' }}>DIPAK</span> <span style={{ color: '#C89B3C' }}>NUTRA</span>
-                  </span>
-                  {/* Divider */}
-                  <div className="flex items-center gap-2 my-1">
-                    <div className="w-12 h-px" style={{ backgroundColor: '#C89B3C' }}></div>
-                    <span style={{ color: '#C89B3C' }}>✿</span>
-                    <div className="w-12 h-px" style={{ backgroundColor: '#C89B3C' }}></div>
-                  </div>
-                  {/* Tagline */}
-                  <span className="text-[9px] md:text-[10px] tracking-[0.2em] uppercase" style={{ fontFamily: "'Libre Baskerville', Georgia, serif", color: '#1B3D2F' }}>
-                    Nature's Goodness, Your Wellness
-                  </span>
-                </div>
-              </div>
-            </Link>
+      <div className="border-b border-[rgba(27,61,47,0.08)] bg-[rgba(247,243,235,0.84)] backdrop-blur-xl">
+        <div className="container-custom py-3">
+          <div className="flex items-center justify-between gap-4">
+            <BrandLogo className="shrink-0" />
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center gap-6">
+            <nav className="hidden items-center gap-7 lg:flex">
+              <div
+                className="relative"
+                onMouseLeave={() => setShopOpen(false)}
+              >
+                <button
+                  type="button"
+                  onMouseEnter={() => setShopOpen(true)}
+                  onClick={() => setShopOpen((open) => !open)}
+                  className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.14em] text-[#1B3D2F]/78 hover:text-[#C89B3C]"
+                >
+                  Shop
+                  <ChevronDown className={`h-4 w-4 ${shopOpen ? 'rotate-180' : ''}`} />
+                </button>
+                {shopOpen && (
+                  <div className="absolute left-0 top-full mt-4 grid w-[30rem] grid-cols-2 gap-3 rounded-[1.6rem] border border-[rgba(27,61,47,0.08)] bg-[rgba(255,252,247,0.96)] p-4 shadow-[0_30px_80px_rgba(27,61,47,0.16)]">
+                    {categoryLinks.map((category) => (
+                      <Link
+                        key={category.slug}
+                        href={`/shop?category=${category.slug}`}
+                        className="rounded-[1.25rem] border border-[rgba(27,61,47,0.08)] bg-[rgba(247,243,235,0.6)] px-4 py-3 hover:border-[rgba(200,155,60,0.4)] hover:bg-white"
+                        onClick={() => setShopOpen(false)}
+                      >
+                        <span className="block text-sm font-bold uppercase tracking-[0.12em] text-[#1B3D2F]">
+                          {category.name}
+                        </span>
+                        <span className="mt-1 block text-xs text-[#1B3D2F]/60">
+                          Curated premium dry fruits in this collection.
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               {navLinks.map((link) => (
-                <Link key={link.href} href={link.href} className="text-sm font-medium text-[#1B3D2F]/80 hover:text-[#C89B3C] transition-colors">
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm font-bold uppercase tracking-[0.14em] text-[#1B3D2F]/78 hover:text-[#C89B3C]"
+                >
                   {link.label}
                 </Link>
               ))}
             </nav>
 
-            {/* Shop Dropdown */}
-            <div className="hidden lg:block relative">
-              <button onClick={() => setShopOpen(!shopOpen)} className="text-sm font-medium text-[#1B3D2F]/80 hover:text-[#C89B3C] transition-colors flex items-center gap-1">
-                Shop <ChevronDown className={`w-4 h-4 ${shopOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {shopOpen && (
-                <div className="absolute top-full left-0 mt-2 w-56 bg-white border border-[#e8dfd0] rounded-lg shadow-xl py-2 z-50">
-                  {categories.slice(1).map((cat) => (
-                    <Link key={cat.slug} href={`/shop?category=${cat.slug}`} className="block px-4 py-2 text-sm text-[#1B3D2F] hover:bg-[#F7F3EB] hover:text-[#C89B3C]" onClick={() => setShopOpen(false)}>
-                      {cat.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* Search & Actions */}
-            <div className="flex items-center gap-3">
-              <button className="hidden md:flex items-center gap-2 px-4 py-2 bg-[#F7F3EB] rounded-full text-sm text-[#1B3D2F]/60">
-                <Search className="w-4 h-4" />
-              </button>
-              <Link href="/admin" className="hidden md:flex items-center gap-1 text-sm font-medium text-[#1B3D2F]/60 hover:text-[#C89B3C]">
-                <User className="w-4 h-4" />
+            <div className="flex items-center gap-2 sm:gap-3">
+              <Link
+                href="/shop"
+                className="hidden h-11 items-center gap-2 rounded-full border border-[rgba(27,61,47,0.12)] bg-[rgba(255,252,247,0.68)] px-4 text-sm font-bold text-[#1B3D2F]/70 hover:border-[rgba(200,155,60,0.4)] hover:text-[#C89B3C] md:inline-flex"
+              >
+                <Search className="h-4 w-4" />
+                Explore
               </Link>
-              <Link href="/cart" className="relative">
-                <ShoppingCart className="w-6 h-6" style={{ color: '#1B3D2F' }} />
+              <Link
+                href="/admin"
+                className="hidden h-11 w-11 items-center justify-center rounded-full border border-[rgba(27,61,47,0.12)] bg-[rgba(255,252,247,0.68)] text-[#1B3D2F]/72 hover:border-[rgba(200,155,60,0.4)] hover:text-[#C89B3C] md:inline-flex"
+                aria-label="Admin"
+              >
+                <User className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/cart"
+                className="relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(27,61,47,0.12)] bg-[rgba(255,252,247,0.76)] text-[#1B3D2F] hover:border-[rgba(200,155,60,0.45)] hover:text-[#C89B3C]"
+                aria-label="Cart"
+              >
+                <ShoppingCart className="h-5 w-5" />
                 {itemCount > 0 && (
-                  <span className="absolute -top-2 -right-2 w-5 h-5 bg-[#C89B3C] text-white text-xs font-bold rounded-full flex items-center justify-center">
+                  <span className="absolute -right-1 -top-1 inline-flex min-h-[1.25rem] min-w-[1.25rem] items-center justify-center rounded-full bg-[#C89B3C] px-1 text-[0.68rem] font-bold text-[#fffdf8]">
                     {itemCount}
                   </span>
                 )}
               </Link>
-              <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="lg:hidden">
-                {mobileMenuOpen ? <X className="w-6 h-6" style={{ color: '#1B3D2F' }} /> : <Menu className="w-6 h-6" style={{ color: '#1B3D2F' }} />}
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen((open) => !open)}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[rgba(27,61,47,0.12)] bg-[rgba(255,252,247,0.76)] text-[#1B3D2F] lg:hidden"
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Category Bar */}
-        <div className="hidden lg:block border-t border-[#e8dfd0]">
-          <div className="container-custom py-2">
-            <div className="flex items-center gap-8 overflow-x-auto">
-              {categories.slice(1).map((cat) => (
-                <Link key={cat.slug} href={`/shop?category=${cat.slug}`} className="text-sm text-[#1B3D2F]/70 hover:text-[#C89B3C] whitespace-nowrap">
-                  {cat.name}
-                </Link>
-              ))}
-            </div>
+        <div className="hidden border-t border-[rgba(27,61,47,0.08)] lg:block">
+          <div className="container-custom flex items-center gap-3 overflow-x-auto py-3">
+            {categoryLinks.map((category) => (
+              <Link
+                key={category.slug}
+                href={`/shop?category=${category.slug}`}
+                className="chip border border-[rgba(27,61,47,0.08)] bg-[rgba(255,252,247,0.6)] text-[#1B3D2F] hover:border-[rgba(200,155,60,0.45)] hover:text-[#C89B3C]"
+              >
+                <Store className="h-3.5 w-3.5" />
+                {category.name}
+              </Link>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-[#e8dfd0] absolute w-full">
-          <div className="container-custom py-4">
-            {navLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="block py-3 border-b border-[#e8dfd0]" style={{ color: '#1B3D2F' }} onClick={() => setMobileMenuOpen(false)}>
-                {link.label}
-              </Link>
-            ))}
+        <div className="border-b border-[rgba(27,61,47,0.08)] bg-[rgba(255,252,247,0.95)] shadow-[0_24px_60px_rgba(27,61,47,0.12)] lg:hidden">
+          <div className="container-custom grid gap-6 py-6">
+            <div className="grid gap-3">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="rounded-[1.25rem] border border-[rgba(27,61,47,0.08)] bg-[rgba(247,243,235,0.74)] px-4 py-3 text-sm font-bold uppercase tracking-[0.14em] text-[#1B3D2F]"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+
+            <div className="rounded-[1.6rem] border border-[rgba(27,61,47,0.08)] bg-[linear-gradient(145deg,rgba(27,61,47,0.96),rgba(18,45,34,0.95))] p-5 text-[#F7F3EB]">
+              <div className="mb-4 flex items-center gap-2 text-[0.72rem] font-bold uppercase tracking-[0.2em] text-[#C89B3C]">
+                <ShieldCheck className="h-4 w-4" />
+                Shop Categories
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                {categoryLinks.map((category) => (
+                  <Link
+                    key={category.slug}
+                    href={`/shop?category=${category.slug}`}
+                    className="rounded-[1.15rem] border border-[rgba(247,243,235,0.14)] bg-[rgba(247,243,235,0.06)] px-3 py-3 text-sm font-bold text-[#F7F3EB]"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {category.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       )}
