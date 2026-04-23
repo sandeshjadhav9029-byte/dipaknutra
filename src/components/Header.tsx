@@ -34,28 +34,38 @@ export default function Header() {
         <div className="container-custom">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* LOGO - Based on Brand Spec */}
-            <Link href="/" className="flex items-center gap-2">
-              <div className="relative w-14 h-14">
-                <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-                  {/* Background */}
-                  <rect width="120" height="120" rx="12" fill="#F7F3EB"/>
-                  
-                  {/* D in Forest Green */}
-                  <text x="28" y="75" fontSize="48" fontFamily="serif" fontWeight="bold" fill="#1B3D2F">D</text>
-                  
-                  {/* N in Gold */}
-                  <text x="62" y="75" fontSize="48" fontFamily="serif" fontWeight="bold" fill="#C89B3C">N</text>
-                  
-                  {/* Leaf on N */}
-                  <path d="M75 35 Q85 20 95 30 Q90 45 80 50 Q75 45 75 35" fill="#1B3D2F"/>
-                  <path d="M78 38 Q85 28 92 35" stroke="#F7F3EB" strokeWidth="1.5" fill="none"/>
-                </svg>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xl md:text-2xl font-bold font-serif" style={{ color: '#1B3D2F' }}>
-                  DIPAK <span style={{ color: '#C89B3C' }}>NUTRA</span>
-                </span>
-                <span className="text-[10px] tracking-widest uppercase" style={{ color: '#1B3D2F' }}>nature's goodness, your wellness</span>
+            <Link href="/" className="flex flex-col items-center gap-1">
+              {/* Monogram + Brand Name */}
+              <div className="flex items-center gap-3">
+                {/* DN Monogram with Leaf */}
+                <div className="relative w-12 h-12">
+                  <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+                    {/* D in Forest Green */}
+                    <text x="8" y="55" fontSize="38" fontFamily="Georgia, serif" fontWeight="bold" fill="#1B3D2F">D</text>
+                    {/* N in Gold */}
+                    <text x="38" y="55" fontSize="38" fontFamily="Georgia, serif" fontWeight="bold" fill="#C89B3C">N</text>
+                    {/* Leaf on N - elegant curved leaf */}
+                    <path d="M52 18 Q65 8 72 18 Q68 32 58 35 Q52 30 52 18" fill="#1B3D2F"/>
+                    <path d="M55 22 Q62 16 68 22" stroke="#F7F3EB" strokeWidth="1" fill="none"/>
+                    <path d="M56 26 Q60 22 64 26" stroke="#F7F3EB" strokeWidth="0.75" fill="none"/>
+                  </svg>
+                </div>
+                {/* Brand Name */}
+                <div className="flex flex-col">
+                  <span className="text-xl md:text-2xl font-bold tracking-wider font-serif" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+                    <span style={{ color: '#1B3D2F' }}>DIPAK</span> <span style={{ color: '#C89B3C' }}>NUTRA</span>
+                  </span>
+                  {/* Divider */}
+                  <div className="flex items-center gap-2 my-1">
+                    <div className="w-12 h-px" style={{ backgroundColor: '#C89B3C' }}></div>
+                    <span style={{ color: '#C89B3C' }}>✿</span>
+                    <div className="w-12 h-px" style={{ backgroundColor: '#C89B3C' }}></div>
+                  </div>
+                  {/* Tagline */}
+                  <span className="text-[9px] md:text-[10px] tracking-[0.2em] uppercase" style={{ fontFamily: "'Libre Baskerville', Georgia, serif", color: '#1B3D2F' }}>
+                    Nature's Goodness, Your Wellness
+                  </span>
+                </div>
               </div>
             </Link>
 
