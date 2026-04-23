@@ -1,91 +1,37 @@
-import { RefreshCw, ShieldCheck, Truck } from 'lucide-react';
-
-const shippingSections = [
-  {
-    title: 'Shipping Policy',
-    icon: Truck,
-    blocks: [
-      {
-        heading: 'Delivery time',
-        items: ['Standard delivery: 5-7 business days', 'Remote locations may take an additional 2-3 days'],
-      },
-      {
-        heading: 'Shipping charges',
-        items: ['Free shipping on orders above ₹500', '₹50 shipping charge for orders below ₹500'],
-      },
-      {
-        heading: 'Coverage',
-        items: ['Delivery available across India', 'Tracking details shared by SMS and email once dispatched'],
-      },
-    ],
-  },
-  {
-    title: 'Returns & Refunds',
-    icon: RefreshCw,
-    blocks: [
-      {
-        heading: 'Return window',
-        items: ['7-day return support for damaged or defective products', 'Product should remain in original packaging for review'],
-      },
-      {
-        heading: 'Refund process',
-        items: ['Share the order number and photos with the support team', 'Refunds are processed within 5-7 business days after quality review'],
-      },
-      {
-        heading: 'Non-returnable cases',
-        items: ['Opened or used products unless there is a verified quality issue', 'Products past expiry date'],
-      },
-    ],
-  },
-];
+import { Truck, RefreshCw, ShieldCheck } from 'lucide-react';
 
 export default function ShippingPage() {
   return (
-    <div className="page-shell">
+    <div className="section">
       <div className="container-custom">
-        <section className="page-hero mb-8">
-          <div className="max-w-3xl">
-            <div className="eyebrow">
-              <ShieldCheck className="h-4 w-4 text-[#C89B3C]" />
-              Shipping & Returns
+        <h1 className="text-3xl font-bold text-[#1B3D2F] mb-8">Shipping & Returns</h1>
+
+        <div className="space-y-8 max-w-3xl">
+          <div className="p-6 bg-white rounded-lg border border-[rgba(27,61,47,0.1)]">
+            <div className="flex items-center gap-3 mb-4">
+              <Truck className="w-6 h-6" style={{ color: '#C89B3C' }} />
+              <h2 className="text-xl font-semibold text-[#1B3D2F]">Shipping Policy</h2>
             </div>
-            <h1 className="section-title mt-6">Clear policies for delivery, returns, and refund support.</h1>
-            <p className="section-copy mt-5">
-              The policies below match the Dipak Nutra brief: free shipping above ₹500, 5-7 day
-              delivery, and 7-day return assistance.
-            </p>
+            <ul className="space-y-2 text-[#1B3D2F]/70">
+              <li>• Free shipping on orders above ₹500</li>
+              <li>• ₹50 shipping charge for orders below ₹500</li>
+              <li>• Standard delivery: 5-7 business days</li>
+              <li>• Delivery across India</li>
+            </ul>
           </div>
-        </section>
 
-        <div className="mx-auto max-w-5xl space-y-6">
-          {shippingSections.map((section) => (
-            <section key={section.title} className="card-surface p-6 md:p-8">
-              <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[rgba(27,61,47,0.08)]">
-                  <section.icon className="h-5 w-5 text-[#C89B3C]" />
-                </div>
-                <h2 className="text-3xl text-[#1B3D2F]">{section.title}</h2>
-              </div>
-
-              <div className="mt-8 grid gap-5 md:grid-cols-3">
-                {section.blocks.map((block) => (
-                  <div
-                    key={block.heading}
-                    className="rounded-[1.5rem] border border-[rgba(27,61,47,0.08)] bg-[rgba(247,243,235,0.74)] p-5"
-                  >
-                    <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#1B3D2F]/54">
-                      {block.heading}
-                    </p>
-                    <ul className="mt-4 space-y-3 text-sm leading-7 text-[#1B3D2F]/66">
-                      {block.items.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </section>
-          ))}
+          <div className="p-6 bg-white rounded-lg border border-[rgba(27,61,47,0.1)]">
+            <div className="flex items-center gap-3 mb-4">
+              <RefreshCw className="w-6 h-6" style={{ color: '#C89B3C' }} />
+              <h2 className="text-xl font-semibold text-[#1B3D2F]">Returns & Refunds</h2>
+            </div>
+            <ul className="space-y-2 text-[#1B3D2F]/70">
+              <li>• 7-day return window for damaged products</li>
+              <li>• Product must be in original packaging</li>
+              <li>• Refunds processed within 5-7 business days</li>
+              <li>• Contact with photos required for returns</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
